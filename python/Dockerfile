@@ -14,6 +14,10 @@ RUN git checkout -f 814da78353ba31d18a450d1a1aa4321cc17b985c
 RUN ./configure --prefix="/rust-python-embedded/python/build" --with-pkg-config=yes --enable-shared --disable-test-modules LDFLAGS="-Wl,-rpath,\\$\$ORIGIN/../lib"
 RUN make clean
 
+# create container
+# docker create -it --rm --init --add-host host.docker.internal:host-gateway --mount type=bind,source=/mnt/rust/rust-python-embedded/,target=/rust-python-embedded/ --name python_build python_build:latest
+# docker start -ia python_build
+
 # run these commands to build and install to the selected folder
 # RUN make -s -j
 # RUN make install
