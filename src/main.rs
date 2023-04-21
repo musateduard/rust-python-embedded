@@ -28,7 +28,7 @@ fn main() -> () {
 
     let python_code: CString = CString::new(include_str!("../python/code.py")).unwrap();
     let python_name: CString = CString::new("my python program").unwrap();
-    let python_home: CString = CString::new("/usr").unwrap();
+    let python_home: CString = CString::new("./python/build").unwrap();
 
     // initialize preconfig struct
     unsafe {PyPreConfig_InitIsolatedConfig(&mut python_preconfig)};

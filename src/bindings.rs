@@ -255,8 +255,10 @@ pub struct PyConfig {
     pub faulthandler: ::std::os::raw::c_int,
     pub tracemalloc: ::std::os::raw::c_int,
     pub import_time: ::std::os::raw::c_int,
+    pub code_debug_ranges: ::std::os::raw::c_int,
     pub show_ref_count: ::std::os::raw::c_int,
     pub dump_refs: ::std::os::raw::c_int,
+    pub dump_refs_file: *mut wchar_t,
     pub malloc_stats: ::std::os::raw::c_int,
     pub filesystem_encoding: *mut wchar_t,
     pub filesystem_errors: *mut wchar_t,
@@ -282,6 +284,8 @@ pub struct PyConfig {
     pub stdio_encoding: *mut wchar_t,
     pub stdio_errors: *mut wchar_t,
     pub check_hash_pycs_mode: *mut wchar_t,
+    pub use_frozen_modules: ::std::os::raw::c_int,
+    pub safe_path: ::std::os::raw::c_int,
     pub pathconfig_warnings: ::std::os::raw::c_int,
     pub program_name: *mut wchar_t,
     pub pythonpath_env: *mut wchar_t,
@@ -289,6 +293,7 @@ pub struct PyConfig {
     pub platlibdir: *mut wchar_t,
     pub module_search_paths_set: ::std::os::raw::c_int,
     pub module_search_paths: PyWideStringList,
+    pub stdlib_dir: *mut wchar_t,
     pub executable: *mut wchar_t,
     pub base_executable: *mut wchar_t,
     pub prefix: *mut wchar_t,
@@ -302,6 +307,7 @@ pub struct PyConfig {
     pub _install_importlib: ::std::os::raw::c_int,
     pub _init_main: ::std::os::raw::c_int,
     pub _isolated_interpreter: ::std::os::raw::c_int,
+    pub _is_python_build: ::std::os::raw::c_int,
 }
 #[test]
 fn bindgen_test_layout_PyConfig() {
@@ -309,7 +315,7 @@ fn bindgen_test_layout_PyConfig() {
     let ptr = UNINIT.as_ptr();
     assert_eq!(
         ::std::mem::size_of::<PyConfig>(),
-        392usize,
+        424usize,
         concat!("Size of: ", stringify!(PyConfig))
     );
     assert_eq!(
@@ -418,8 +424,18 @@ fn bindgen_test_layout_PyConfig() {
         )
     );
     assert_eq!(
-        unsafe { ::std::ptr::addr_of!((*ptr).show_ref_count) as usize - ptr as usize },
+        unsafe { ::std::ptr::addr_of!((*ptr).code_debug_ranges) as usize - ptr as usize },
         44usize,
+        concat!(
+            "Offset of field: ",
+            stringify!(PyConfig),
+            "::",
+            stringify!(code_debug_ranges)
+        )
+    );
+    assert_eq!(
+        unsafe { ::std::ptr::addr_of!((*ptr).show_ref_count) as usize - ptr as usize },
+        48usize,
         concat!(
             "Offset of field: ",
             stringify!(PyConfig),
@@ -429,7 +445,7 @@ fn bindgen_test_layout_PyConfig() {
     );
     assert_eq!(
         unsafe { ::std::ptr::addr_of!((*ptr).dump_refs) as usize - ptr as usize },
-        48usize,
+        52usize,
         concat!(
             "Offset of field: ",
             stringify!(PyConfig),
@@ -438,8 +454,18 @@ fn bindgen_test_layout_PyConfig() {
         )
     );
     assert_eq!(
+        unsafe { ::std::ptr::addr_of!((*ptr).dump_refs_file) as usize - ptr as usize },
+        56usize,
+        concat!(
+            "Offset of field: ",
+            stringify!(PyConfig),
+            "::",
+            stringify!(dump_refs_file)
+        )
+    );
+    assert_eq!(
         unsafe { ::std::ptr::addr_of!((*ptr).malloc_stats) as usize - ptr as usize },
-        52usize,
+        64usize,
         concat!(
             "Offset of field: ",
             stringify!(PyConfig),
@@ -449,7 +475,7 @@ fn bindgen_test_layout_PyConfig() {
     );
     assert_eq!(
         unsafe { ::std::ptr::addr_of!((*ptr).filesystem_encoding) as usize - ptr as usize },
-        56usize,
+        72usize,
         concat!(
             "Offset of field: ",
             stringify!(PyConfig),
@@ -459,7 +485,7 @@ fn bindgen_test_layout_PyConfig() {
     );
     assert_eq!(
         unsafe { ::std::ptr::addr_of!((*ptr).filesystem_errors) as usize - ptr as usize },
-        64usize,
+        80usize,
         concat!(
             "Offset of field: ",
             stringify!(PyConfig),
@@ -469,7 +495,7 @@ fn bindgen_test_layout_PyConfig() {
     );
     assert_eq!(
         unsafe { ::std::ptr::addr_of!((*ptr).pycache_prefix) as usize - ptr as usize },
-        72usize,
+        88usize,
         concat!(
             "Offset of field: ",
             stringify!(PyConfig),
@@ -479,7 +505,7 @@ fn bindgen_test_layout_PyConfig() {
     );
     assert_eq!(
         unsafe { ::std::ptr::addr_of!((*ptr).parse_argv) as usize - ptr as usize },
-        80usize,
+        96usize,
         concat!(
             "Offset of field: ",
             stringify!(PyConfig),
@@ -489,7 +515,7 @@ fn bindgen_test_layout_PyConfig() {
     );
     assert_eq!(
         unsafe { ::std::ptr::addr_of!((*ptr).orig_argv) as usize - ptr as usize },
-        88usize,
+        104usize,
         concat!(
             "Offset of field: ",
             stringify!(PyConfig),
@@ -499,7 +525,7 @@ fn bindgen_test_layout_PyConfig() {
     );
     assert_eq!(
         unsafe { ::std::ptr::addr_of!((*ptr).argv) as usize - ptr as usize },
-        104usize,
+        120usize,
         concat!(
             "Offset of field: ",
             stringify!(PyConfig),
@@ -509,7 +535,7 @@ fn bindgen_test_layout_PyConfig() {
     );
     assert_eq!(
         unsafe { ::std::ptr::addr_of!((*ptr).xoptions) as usize - ptr as usize },
-        120usize,
+        136usize,
         concat!(
             "Offset of field: ",
             stringify!(PyConfig),
@@ -519,7 +545,7 @@ fn bindgen_test_layout_PyConfig() {
     );
     assert_eq!(
         unsafe { ::std::ptr::addr_of!((*ptr).warnoptions) as usize - ptr as usize },
-        136usize,
+        152usize,
         concat!(
             "Offset of field: ",
             stringify!(PyConfig),
@@ -529,7 +555,7 @@ fn bindgen_test_layout_PyConfig() {
     );
     assert_eq!(
         unsafe { ::std::ptr::addr_of!((*ptr).site_import) as usize - ptr as usize },
-        152usize,
+        168usize,
         concat!(
             "Offset of field: ",
             stringify!(PyConfig),
@@ -539,7 +565,7 @@ fn bindgen_test_layout_PyConfig() {
     );
     assert_eq!(
         unsafe { ::std::ptr::addr_of!((*ptr).bytes_warning) as usize - ptr as usize },
-        156usize,
+        172usize,
         concat!(
             "Offset of field: ",
             stringify!(PyConfig),
@@ -549,7 +575,7 @@ fn bindgen_test_layout_PyConfig() {
     );
     assert_eq!(
         unsafe { ::std::ptr::addr_of!((*ptr).warn_default_encoding) as usize - ptr as usize },
-        160usize,
+        176usize,
         concat!(
             "Offset of field: ",
             stringify!(PyConfig),
@@ -559,7 +585,7 @@ fn bindgen_test_layout_PyConfig() {
     );
     assert_eq!(
         unsafe { ::std::ptr::addr_of!((*ptr).inspect) as usize - ptr as usize },
-        164usize,
+        180usize,
         concat!(
             "Offset of field: ",
             stringify!(PyConfig),
@@ -569,7 +595,7 @@ fn bindgen_test_layout_PyConfig() {
     );
     assert_eq!(
         unsafe { ::std::ptr::addr_of!((*ptr).interactive) as usize - ptr as usize },
-        168usize,
+        184usize,
         concat!(
             "Offset of field: ",
             stringify!(PyConfig),
@@ -579,7 +605,7 @@ fn bindgen_test_layout_PyConfig() {
     );
     assert_eq!(
         unsafe { ::std::ptr::addr_of!((*ptr).optimization_level) as usize - ptr as usize },
-        172usize,
+        188usize,
         concat!(
             "Offset of field: ",
             stringify!(PyConfig),
@@ -589,7 +615,7 @@ fn bindgen_test_layout_PyConfig() {
     );
     assert_eq!(
         unsafe { ::std::ptr::addr_of!((*ptr).parser_debug) as usize - ptr as usize },
-        176usize,
+        192usize,
         concat!(
             "Offset of field: ",
             stringify!(PyConfig),
@@ -599,7 +625,7 @@ fn bindgen_test_layout_PyConfig() {
     );
     assert_eq!(
         unsafe { ::std::ptr::addr_of!((*ptr).write_bytecode) as usize - ptr as usize },
-        180usize,
+        196usize,
         concat!(
             "Offset of field: ",
             stringify!(PyConfig),
@@ -609,7 +635,7 @@ fn bindgen_test_layout_PyConfig() {
     );
     assert_eq!(
         unsafe { ::std::ptr::addr_of!((*ptr).verbose) as usize - ptr as usize },
-        184usize,
+        200usize,
         concat!(
             "Offset of field: ",
             stringify!(PyConfig),
@@ -619,7 +645,7 @@ fn bindgen_test_layout_PyConfig() {
     );
     assert_eq!(
         unsafe { ::std::ptr::addr_of!((*ptr).quiet) as usize - ptr as usize },
-        188usize,
+        204usize,
         concat!(
             "Offset of field: ",
             stringify!(PyConfig),
@@ -629,7 +655,7 @@ fn bindgen_test_layout_PyConfig() {
     );
     assert_eq!(
         unsafe { ::std::ptr::addr_of!((*ptr).user_site_directory) as usize - ptr as usize },
-        192usize,
+        208usize,
         concat!(
             "Offset of field: ",
             stringify!(PyConfig),
@@ -639,7 +665,7 @@ fn bindgen_test_layout_PyConfig() {
     );
     assert_eq!(
         unsafe { ::std::ptr::addr_of!((*ptr).configure_c_stdio) as usize - ptr as usize },
-        196usize,
+        212usize,
         concat!(
             "Offset of field: ",
             stringify!(PyConfig),
@@ -649,7 +675,7 @@ fn bindgen_test_layout_PyConfig() {
     );
     assert_eq!(
         unsafe { ::std::ptr::addr_of!((*ptr).buffered_stdio) as usize - ptr as usize },
-        200usize,
+        216usize,
         concat!(
             "Offset of field: ",
             stringify!(PyConfig),
@@ -659,7 +685,7 @@ fn bindgen_test_layout_PyConfig() {
     );
     assert_eq!(
         unsafe { ::std::ptr::addr_of!((*ptr).stdio_encoding) as usize - ptr as usize },
-        208usize,
+        224usize,
         concat!(
             "Offset of field: ",
             stringify!(PyConfig),
@@ -669,7 +695,7 @@ fn bindgen_test_layout_PyConfig() {
     );
     assert_eq!(
         unsafe { ::std::ptr::addr_of!((*ptr).stdio_errors) as usize - ptr as usize },
-        216usize,
+        232usize,
         concat!(
             "Offset of field: ",
             stringify!(PyConfig),
@@ -679,7 +705,7 @@ fn bindgen_test_layout_PyConfig() {
     );
     assert_eq!(
         unsafe { ::std::ptr::addr_of!((*ptr).check_hash_pycs_mode) as usize - ptr as usize },
-        224usize,
+        240usize,
         concat!(
             "Offset of field: ",
             stringify!(PyConfig),
@@ -688,8 +714,28 @@ fn bindgen_test_layout_PyConfig() {
         )
     );
     assert_eq!(
+        unsafe { ::std::ptr::addr_of!((*ptr).use_frozen_modules) as usize - ptr as usize },
+        248usize,
+        concat!(
+            "Offset of field: ",
+            stringify!(PyConfig),
+            "::",
+            stringify!(use_frozen_modules)
+        )
+    );
+    assert_eq!(
+        unsafe { ::std::ptr::addr_of!((*ptr).safe_path) as usize - ptr as usize },
+        252usize,
+        concat!(
+            "Offset of field: ",
+            stringify!(PyConfig),
+            "::",
+            stringify!(safe_path)
+        )
+    );
+    assert_eq!(
         unsafe { ::std::ptr::addr_of!((*ptr).pathconfig_warnings) as usize - ptr as usize },
-        232usize,
+        256usize,
         concat!(
             "Offset of field: ",
             stringify!(PyConfig),
@@ -699,7 +745,7 @@ fn bindgen_test_layout_PyConfig() {
     );
     assert_eq!(
         unsafe { ::std::ptr::addr_of!((*ptr).program_name) as usize - ptr as usize },
-        240usize,
+        264usize,
         concat!(
             "Offset of field: ",
             stringify!(PyConfig),
@@ -709,7 +755,7 @@ fn bindgen_test_layout_PyConfig() {
     );
     assert_eq!(
         unsafe { ::std::ptr::addr_of!((*ptr).pythonpath_env) as usize - ptr as usize },
-        248usize,
+        272usize,
         concat!(
             "Offset of field: ",
             stringify!(PyConfig),
@@ -719,7 +765,7 @@ fn bindgen_test_layout_PyConfig() {
     );
     assert_eq!(
         unsafe { ::std::ptr::addr_of!((*ptr).home) as usize - ptr as usize },
-        256usize,
+        280usize,
         concat!(
             "Offset of field: ",
             stringify!(PyConfig),
@@ -729,7 +775,7 @@ fn bindgen_test_layout_PyConfig() {
     );
     assert_eq!(
         unsafe { ::std::ptr::addr_of!((*ptr).platlibdir) as usize - ptr as usize },
-        264usize,
+        288usize,
         concat!(
             "Offset of field: ",
             stringify!(PyConfig),
@@ -739,7 +785,7 @@ fn bindgen_test_layout_PyConfig() {
     );
     assert_eq!(
         unsafe { ::std::ptr::addr_of!((*ptr).module_search_paths_set) as usize - ptr as usize },
-        272usize,
+        296usize,
         concat!(
             "Offset of field: ",
             stringify!(PyConfig),
@@ -749,7 +795,7 @@ fn bindgen_test_layout_PyConfig() {
     );
     assert_eq!(
         unsafe { ::std::ptr::addr_of!((*ptr).module_search_paths) as usize - ptr as usize },
-        280usize,
+        304usize,
         concat!(
             "Offset of field: ",
             stringify!(PyConfig),
@@ -758,8 +804,18 @@ fn bindgen_test_layout_PyConfig() {
         )
     );
     assert_eq!(
+        unsafe { ::std::ptr::addr_of!((*ptr).stdlib_dir) as usize - ptr as usize },
+        320usize,
+        concat!(
+            "Offset of field: ",
+            stringify!(PyConfig),
+            "::",
+            stringify!(stdlib_dir)
+        )
+    );
+    assert_eq!(
         unsafe { ::std::ptr::addr_of!((*ptr).executable) as usize - ptr as usize },
-        296usize,
+        328usize,
         concat!(
             "Offset of field: ",
             stringify!(PyConfig),
@@ -769,7 +825,7 @@ fn bindgen_test_layout_PyConfig() {
     );
     assert_eq!(
         unsafe { ::std::ptr::addr_of!((*ptr).base_executable) as usize - ptr as usize },
-        304usize,
+        336usize,
         concat!(
             "Offset of field: ",
             stringify!(PyConfig),
@@ -779,7 +835,7 @@ fn bindgen_test_layout_PyConfig() {
     );
     assert_eq!(
         unsafe { ::std::ptr::addr_of!((*ptr).prefix) as usize - ptr as usize },
-        312usize,
+        344usize,
         concat!(
             "Offset of field: ",
             stringify!(PyConfig),
@@ -789,7 +845,7 @@ fn bindgen_test_layout_PyConfig() {
     );
     assert_eq!(
         unsafe { ::std::ptr::addr_of!((*ptr).base_prefix) as usize - ptr as usize },
-        320usize,
+        352usize,
         concat!(
             "Offset of field: ",
             stringify!(PyConfig),
@@ -799,7 +855,7 @@ fn bindgen_test_layout_PyConfig() {
     );
     assert_eq!(
         unsafe { ::std::ptr::addr_of!((*ptr).exec_prefix) as usize - ptr as usize },
-        328usize,
+        360usize,
         concat!(
             "Offset of field: ",
             stringify!(PyConfig),
@@ -809,7 +865,7 @@ fn bindgen_test_layout_PyConfig() {
     );
     assert_eq!(
         unsafe { ::std::ptr::addr_of!((*ptr).base_exec_prefix) as usize - ptr as usize },
-        336usize,
+        368usize,
         concat!(
             "Offset of field: ",
             stringify!(PyConfig),
@@ -819,7 +875,7 @@ fn bindgen_test_layout_PyConfig() {
     );
     assert_eq!(
         unsafe { ::std::ptr::addr_of!((*ptr).skip_source_first_line) as usize - ptr as usize },
-        344usize,
+        376usize,
         concat!(
             "Offset of field: ",
             stringify!(PyConfig),
@@ -829,7 +885,7 @@ fn bindgen_test_layout_PyConfig() {
     );
     assert_eq!(
         unsafe { ::std::ptr::addr_of!((*ptr).run_command) as usize - ptr as usize },
-        352usize,
+        384usize,
         concat!(
             "Offset of field: ",
             stringify!(PyConfig),
@@ -839,7 +895,7 @@ fn bindgen_test_layout_PyConfig() {
     );
     assert_eq!(
         unsafe { ::std::ptr::addr_of!((*ptr).run_module) as usize - ptr as usize },
-        360usize,
+        392usize,
         concat!(
             "Offset of field: ",
             stringify!(PyConfig),
@@ -849,7 +905,7 @@ fn bindgen_test_layout_PyConfig() {
     );
     assert_eq!(
         unsafe { ::std::ptr::addr_of!((*ptr).run_filename) as usize - ptr as usize },
-        368usize,
+        400usize,
         concat!(
             "Offset of field: ",
             stringify!(PyConfig),
@@ -859,7 +915,7 @@ fn bindgen_test_layout_PyConfig() {
     );
     assert_eq!(
         unsafe { ::std::ptr::addr_of!((*ptr)._install_importlib) as usize - ptr as usize },
-        376usize,
+        408usize,
         concat!(
             "Offset of field: ",
             stringify!(PyConfig),
@@ -869,7 +925,7 @@ fn bindgen_test_layout_PyConfig() {
     );
     assert_eq!(
         unsafe { ::std::ptr::addr_of!((*ptr)._init_main) as usize - ptr as usize },
-        380usize,
+        412usize,
         concat!(
             "Offset of field: ",
             stringify!(PyConfig),
@@ -879,12 +935,22 @@ fn bindgen_test_layout_PyConfig() {
     );
     assert_eq!(
         unsafe { ::std::ptr::addr_of!((*ptr)._isolated_interpreter) as usize - ptr as usize },
-        384usize,
+        416usize,
         concat!(
             "Offset of field: ",
             stringify!(PyConfig),
             "::",
             stringify!(_isolated_interpreter)
+        )
+    );
+    assert_eq!(
+        unsafe { ::std::ptr::addr_of!((*ptr)._is_python_build) as usize - ptr as usize },
+        420usize,
+        concat!(
+            "Offset of field: ",
+            stringify!(PyConfig),
+            "::",
+            stringify!(_is_python_build)
         )
     );
 }
