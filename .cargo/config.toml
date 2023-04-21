@@ -1,0 +1,7 @@
+[build]
+rustflags = [
+    "-L/usr/lib/x86_64-linux-gnu",
+    "-lpython3.10"]
+
+[cargo-new]
+vcs = "none"
