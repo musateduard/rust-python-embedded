@@ -19,10 +19,6 @@ include!("./bindings.rs");
 // dlls are allowed
 
 
-extern "C" {
-    pub fn abs(number: c_int) -> c_int;}
-
-
 // main function
 fn main() -> () {
 
