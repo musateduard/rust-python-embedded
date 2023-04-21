@@ -3,12 +3,17 @@ use bindgen::{self, CargoCallbacks, Bindings, builder};
 
 fn main() -> () {
 
+    // linker flags
+    println!("cargo:rustc-link-arg=-Wl,-rpath,$ORIGIN/../../python/build/lib");
+    println!("cargo:rustc-link-search=./python/build/lib");
+    println!("cargo:rustc-link-lib=dylib:+verbatim=libpython3.11.so.1.0");
+
     // check if bindings.rs has changed
     println!("cargo:rerun-if-changed=./src/bindings.rs");
 
     // create bindings object that includes all the allowed functions from the header files
     let bindings: Bindings = builder()
-        .header("/usr/include/python3.10/Python.h")
+        .header("./python/build/include/python3.11/Python.h")
         .allowlist_type("PyStatus")
         .allowlist_type("PyPreConfig")
         .allowlist_type("PyConfig")
