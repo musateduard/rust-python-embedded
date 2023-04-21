@@ -11,7 +11,7 @@ RUN git clone https://github.com/python/cpython.git
 WORKDIR /cpython
 
 RUN git checkout -f 814da78353ba31d18a450d1a1aa4321cc17b985c
-RUN ./configure --prefix="/home/python_portable" --with-pkg-config=yes --enable-shared --disable-test-modules LDFLAGS="-Wl,-rpath,\\$\$ORIGIN/../lib"
+RUN ./configure --prefix="/rust-python-embedded/python/build" --with-pkg-config=yes --enable-shared --disable-test-modules LDFLAGS="-Wl,-rpath,\\$\$ORIGIN/../lib"
 RUN make clean
 
 # run these commands to build and install to the selected folder
