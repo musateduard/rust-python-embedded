@@ -8,7 +8,6 @@ fn main() -> () {
 
     // create bindings object that includes all the allowed functions from the header files
     let bindings: Bindings = builder()
-        .header("stdlib.h")
         .header("/usr/include/python3.10/Python.h")
         .allowlist_type("PyStatus")
         .allowlist_type("PyPreConfig")
