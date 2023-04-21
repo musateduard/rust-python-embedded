@@ -1,11 +1,5 @@
 [build]
-rustflags = [
-    "-C",
-    "link-args=-Wl,-rpath,$ORIGIN/../../python/build/lib",
-    "-L/usr/lib/x86_64-linux-gnu",
-    "-L/home/edi/Documents/rust-python-embedded/python/build/lib",
-    "-lpython3.11",
-    ]
+rustflags = []
 
 [cargo-new]
 vcs = "none"
