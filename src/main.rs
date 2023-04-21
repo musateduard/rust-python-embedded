@@ -30,7 +30,7 @@ fn main() -> () {
     let mut python_preconfig: PyPreConfig = unsafe {MaybeUninit::<PyPreConfig>::zeroed().assume_init()};
     let mut python_config: PyConfig = unsafe {MaybeUninit::<PyConfig>::zeroed().assume_init()};
 
-    let python_code: CString = CString::new(include_str!("../c_stuff/python1.py")).unwrap();
+    let python_code: CString = CString::new(include_str!("../python/code.py")).unwrap();
     let python_name: CString = CString::new("my python program").unwrap();
     let python_home: CString = CString::new("/usr").unwrap();
 
