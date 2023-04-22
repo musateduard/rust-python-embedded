@@ -10,6 +10,7 @@ fn main() -> () {
 
     // check if bindings.rs has changed
     println!("cargo:rerun-if-changed=./src/bindings.rs");
+    println!("cargo:rerun-if-changed=./python/*");
 
     // create bindings object that includes all the allowed functions from the header files
     let bindings: Bindings = builder()
