@@ -5,7 +5,7 @@
 #![allow(unused_variables)]
 
 
-use std::ffi::{CString, c_int};
+use std::ffi::{CString};
 use std::mem::{MaybeUninit};
 
 
