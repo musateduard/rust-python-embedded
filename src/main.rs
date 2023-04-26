@@ -57,6 +57,4 @@ fn main() -> () {
 
     println!("finished running Py_RunMain");
 
-    // sdjhfgsdjhfg
-
     return}
