@@ -10,7 +10,8 @@ RUN git clone https://github.com/python/cpython.git
 
 WORKDIR /cpython
 
-RUN git checkout -f 814da78353ba31d18a450d1a1aa4321cc17b985c
+# use commit nr. edb4401c7fce1b076fc8c99577bf590092923317 for python version 3.11.3
+RUN git checkout -f edb4401c7fce1b076fc8c99577bf590092923317
 RUN ./configure --prefix="/rust-python-embedded/python/build" --with-pkg-config=yes --enable-shared --disable-test-modules LDFLAGS="-Wl,-rpath,\\$\$ORIGIN/../lib"
 RUN make clean
 
