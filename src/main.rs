@@ -30,6 +30,8 @@ fn main() -> () {
     let python_name: CString = CString::new("my python program").unwrap();
     let python_home: CString = CString::new("./python/build").unwrap();
 
+    // todo: configure sys.path in python to only search ./python/build/lib
+
     // initialize preconfig struct
     unsafe {PyPreConfig_InitIsolatedConfig(&mut python_preconfig)};
     // python_preconfig.configure_locale = 1;
