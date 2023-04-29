@@ -1,17 +1,36 @@
 import time
-import websockets
 import asyncio
-
-
-async def test_function():
-    print(f"client connected")
-    return
+import sys
+import subprocess
+import pkg_resources
 
 
 async def main():
+    print("builtin modules:")
+    [print(item) for item in sys.builtin_module_names]
+    print()
 
-    async with websockets.serve(test_function, host=None, port=2233, ping_timeout=None):
-        print(f"current time is: {time.asctime()}")
+    print(sys.flags)
+    print()
+
+    print("base prefix:")
+    print(sys.base_prefix)
+    print()
+
+    print("meta path:")
+    [print(item) for item in sys.meta_path]
+    print()
+
+    print("path")
+    [print(item) for item in sys.path]
+    print()
+
+    [print(item) for item in sorted(pkg_resources.working_set)]
+    print()
+
+    subprocess.run([sys.executable, "-m", "pip", "install", "websockets"])
+
+    # help("modules")
 
     return
 
