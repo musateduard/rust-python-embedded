@@ -28,9 +28,12 @@ async def main():
     [print(item) for item in sorted(pkg_resources.working_set)]
     print()
 
-    subprocess.run([sys.executable, "-m", "pip", "install", "websockets"])
-
-    # help("modules")
+    print(f"sys.executable: {sys.executable}")
+    print(f"sys.exec_prefix: {sys.exec_prefix}")
+    subprocess.run(["whoami"])
+    subprocess.run(["pwd"])
+    subprocess.run(["ls", "-alh", "./python/build"])
+    print()
 
     return
 
