@@ -5,6 +5,9 @@ import subprocess
 import websockets
 import pkg_resources
 
+# install packages
+# ./python/build/bin/python3.11 -m pip install --target=./python/build/lib/python3.11/site-packages requests
+
 
 async def main():
     print("builtin modules:")
