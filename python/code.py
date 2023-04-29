@@ -2,6 +2,7 @@ import time
 import asyncio
 import sys
 import subprocess
+import websockets
 import pkg_resources
 
 
