@@ -3,6 +3,7 @@
 #![allow(non_camel_case_types)]
 #![allow(non_snake_case)]
 #![allow(unused_variables)]
+#![allow(unused_braces)]
 
 use std::ffi::{CString};
 use std::mem::{MaybeUninit};
@@ -46,4 +47,4 @@ fn main() -> () {
 
     println!("finished running Py_RunMain");
 
-    return}
+    return ();}
