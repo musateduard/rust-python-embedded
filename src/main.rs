@@ -5,10 +5,15 @@
 #![allow(unused_variables)]
 #![allow(unused_braces)]
 
+mod bindings;
+
+use bindings::{PyStatus, PyPreConfig, PyConfig};
+use bindings::{PyPreConfig_InitIsolatedConfig, Py_PreInitialize};
+use bindings::{PyConfig_InitIsolatedConfig, PyConfig_SetBytesString};
+use bindings::{Py_InitializeFromConfig, Py_RunMain};
+
 use std::ffi::{CString};
 use std::mem::{MaybeUninit};
-
-include!("./bindings.rs");
 
 
 // main function
