@@ -33,4 +33,4 @@ fn main() -> () {
         .write_to_file("./src/bindings.rs")
         .expect("unable to write bindings");
 
-    return}
+    return ();}
