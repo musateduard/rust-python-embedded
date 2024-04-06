@@ -15,8 +15,6 @@ use bindings::{Py_InitializeFromConfig, Py_RunMain};
 use std::ffi::{CString};
 use std::mem::{MaybeUninit};
 
-// test1
-
 
 // main function
 fn main() -> () {
